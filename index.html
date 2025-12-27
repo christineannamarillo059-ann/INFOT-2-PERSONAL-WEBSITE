@@ -1,0 +1,194 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+		<meta charset="UTF-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Home - Personal Website</title> 
+		<link rel="stylesheet" href="style.css"> 
+</head> 
+<body> 
+<header> 
+		<h1>Welcome to My Personal Website</h1> 
+</header> 
+		<nav> 
+<ul> 
+		<li><a href="index.html">HOME</a></li> 
+		<li class="dropdown"> 
+		<a href="#" class="dropbtn">ABOUT</a> 
+		<div class="dropdown-content"> 
+		<a href="skills.html">My Skills</a> 
+		<a href="goals.html">My Goals as a Student</a> 
+		<a href="funfacts.html">About Me</a> 
+</div> 
+</li> 
+		<li><a href="gallery.html">GALLERY</a></li> 
+		<li><a href="contact.html">CONTACT</a></li> 
+		<a href="login.html" class="logout-button" onclick="confirmLogout()">LOG OUT</a> 
+</ul> 
+</nav> 
+	<section id="section2"></section> 
+	<div class="slider"> 
+	<div class="slides"> 
+	<div class="slide"> 
+	<img src="purple.jpg" alt="Image 1"> 
+	<div class="text-overlay"><h1> Good Day!</h1></div> 
+</div> 
+	<div class="slide"> 
+	<img src="purple.jpg" alt="Image 1"> 
+	<div class="text-overlay"><h1> Welcome!</h1></div> 
+</div> 
+	<div class="slide"> 
+	<img src="purple.jpg" alt="Image 3"> 
+	<div class="text-overlay"><h1> Enjoy! Let's Explore my Website!</h1></div>
+</div> 
+</div> 
+</div> 
+		<section id="drop"> 
+			<h2>About Me</h2> 
+			<p>Welcome to my Fun Facts About Me! Here, you'll get a glimpse into my passions, interests, and the little quirks that make me who I am. </p> 
+		<div class="funfact-container"> 
+		<div class="funfact-card"> 
+		<div class="funfact-inner"> 
+		<div class="funfact-front"> 
+			<p>Watching K-dramas, Action movies</p> 
+</div> 
+		<div class="funfact-back"> 
+			<p>I feel comfortable in life by watching K-dramas, action movies to relieve my stress!</p> 
+</div> 
+</div> 
+</div> 
+		<div class="funfact-card"> 
+		<div class="funfact-inner"> 
+		<div class="funfact-front"> 
+			<p>Adventure!</p> 
+</div> 
+		<div class="funfact-back">
+			<p>Nature is my kind of peace.Chilling with a cup of coffee while listening to the soothing sounds of the river!</p> 
+</div> 
+	</div> 
+</div> 
+		<div class="funfact-card"> 
+		<div class="funfact-inner"> 
+		<div class="funfact-front"> 
+			<p>Listening Music By Ben & Ben & OPM! </p> 
+</div> 
+		<div class="funfact-back"> 
+			<p>Music is kind of my comfort zone. Doing your homework while listening music makes me comfortable and think deeper about something.!</p> 
+</div> 
+</div> 
+</div> 
+		<div class="funfact-card"> 
+		<div class="funfact-inner"> 
+		<div class="funfact-front"> 
+			<p>Future Goal! </p> 
+</div> 
+		<div class="funfact-back"> 
+			<p>I want to be a rich people buying some clothes eating a dilicous foods and helping my parents!</p> 
+</div> 
+</div> 
+</div> 
+</div> 
+<!-- See More Button --> 
+		<div class="see-more-container"> 
+		<a href="funfacts.html" class="see-more-button">See More Funfacts</a> 
+</div> 
+</section> 
+		<div class="container"> 
+		<div class="image-section"> 
+		<img src="christine ann.jpg" alt="christine ann Image"> 
+</div> 
+		<div class="quote-section"> 
+		<h1>Hi, I'm Christine Ann!</h1> 
+		<p>I'm an Information Technology student my passsion are exploriting thing in coding im not good but im willing to learn and explore more about coding. I'm interested in  doing a simple website creating a simple wireframe. </blockquote> 
+</div> 
+</div> 
+<footer> 
+	<p>&copy; 2025 CHRISTINE ANN. All rights reserved.</p> 
+</footer> 
+	<div class="footer"></div> <!-- Orange line --> 
+<!-- Lightbox Container --> 
+	<div id="lightbox" class="lightbox" onclick="closeLightbox()"> 
+	<span class="close" onclick="event.stopPropagation(); closeLightbox()">&times;</span> 
+	<img class="lightbox-content" id="lightboxImage" src=""> 
+</div> 
+<!-- Embedded JavaScript --> 
+<script> 
+	const slides = document.querySelector('.slides'); 
+	let index = 0; 
+	function showNextSlide() { 
+	index = (index + 1) % 3; 
+	slides.style.transform = 'translateX(' + (-index * 100) + '%)'; 
+} 
+	setInterval(showNextSlide, 3000); // Change slide every 3 seconds 
+	function openLightbox(imageSrc) { 
+	const lightbox = document.getElementById('lightbox'); 
+	const lightboxImage = 
+	document.getElementById('lightboxImage'); 
+	lightboxImage.src = imageSrc; 
+	lightbox.style.display = 'block'; 
+// Hide header and nav 
+	document.querySelector('header').style.display = 'none';  
+ 
+// Hides the header 
+	document.querySelector('nav').style.display = 'none';  
+ 
+// Hides the nav 
+} 
+	function closeLightbox() { 
+	const lightbox = document.getElementById('lightbox'); 
+	lightbox.style.display = 'none'; 
+ 
+// Show header and nav 
+	document.querySelector('header').style.display = 'block';  
+ 
+// Shows the header 
+	document.querySelector('nav').style.display = 'flex'; // Shows the nav 
+} 
+	document.addEventListener('DOMContentLoaded', function () { 
+	const logoutButton = document.querySelector('.logout-button .dropbtn'); 
+	const logoutDropdown = document.querySelector('.logoutdropdown'); 
+ 
+// Toggle dropdown visibility on button click 
+	logoutButton.addEventListener('click', function () { 
+	logoutDropdown.style.display = 
+	logoutDropdown.style.display === 'block' ? 'none' : 'block'; 
+}); 
+ 
+// Close dropdown if clicking outside of it 
+	window.addEventListener('click', function (event) { 
+	if (!event.target.matches('.dropbtn')) { 
+	if (logoutDropdown.style.display === 'block') { 
+	logoutDropdown.style.display = 'none'; 
+} 
+} 
+}); 
+}); 
+ 
+	</script> 
+<script> 
+ 
+// Logout function with confirmation 
+	function confirmLogout() { 
+ 
+// Show a confirmation message to the user 
+	const confirmLogout = confirm("Are you sure you want to log out?"); 
+ 
+// If the user confirms, proceed with logging out 
+	if (confirmLogout) { 
+ 
+// Mark the user as logged out in localStorage (if used) 
+	localStorage.removeItem('isLoggedIn'); // Or any other keys related to login credentials 
+ 
+// Redirect to the login page 
+	window.location.href = 'login.html'; 
+} 
+	else { 
+ 
+// If the user cancels, do nothing 
+	return; 
+	} 
+} 
+</script> 
+</body> 
+</html> 
+ 

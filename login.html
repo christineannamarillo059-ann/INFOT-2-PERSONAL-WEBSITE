@@ -1,0 +1,164 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+		<meta charset="UTF-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Login & Sign Up Page</title> 
+		<link rel="stylesheet" href="login style.css"> 
+</head> 
+<body> 
+		<div class="form-container"> 
+		<h2 id="formTitle">Login</h2> 
+		<form id="authForm"> 
+		<label for="username">Username</label> 
+		<input type="text" id="username" required> 
+		<label for="password">Password</label> 
+		<input type="password" id="password" required> 
+ 
+<!-- Show Password Checkbox (only for Login) --> 
+		<div class="show-password" 
+		id="showPasswordContainer"> 
+		<input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()"> 
+		<label for="showPassword">Show Password</label> 
+</div> 
+ 
+<!-- Confirm password field for sign-up form --> 
+		<label for="confirmPassword" 
+		id="confirmPasswordLabel" style="display: none;">Confirm Password</label> 
+		<input type="password" id="confirmPassword" 
+		style="display: none;"> 
+             
+<!-- Password match message --> 
+		<p id="passwordMatchMessage" style="font-size: 14px; color: red; display: none;"></p> 
+ 
+		<button type="button" onclick="handleSubmit()">Login</button> 
+		<p id="errorMessage"></p> 
+ 
+<!-- Toggle link to switch between forms --> 
+		<p id="toggleText">Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a></p> 
+	</form></div>
+	<!--Embedded JavaScript --> 
+<script> 
+    let isLogin = true; 
+
+    function toggleForm() { 
+        const formTitle = document.getElementById('formTitle'); 
+        const confirmPasswordField = document.getElementById('confirmPassword'); 
+        const confirmPasswordLabel = document.getElementById('confirmPasswordLabel'); 
+        const submitButton = document.querySelector('button'); 
+        const toggleText = document.getElementById('toggleText'); 
+        const showPasswordContainer = document.getElementById('showPasswordContainer'); 
+        const passwordField = document.getElementById('password'); // Added for reset
+
+        // Clear and reset state when toggling
+        document.getElementById('authForm').reset(); 
+        document.getElementById('errorMessage').textContent = ''; 
+        document.getElementById('passwordMatchMessage').style.display = 'none';
+
+        // Ensure both fields revert to 'password' type (hidden dots)
+        passwordField.type = 'password';
+        confirmPasswordField.type = 'password';
+        document.getElementById('showPassword').checked = false; // Uncheck box
+
+        if (isLogin) { 
+            // Switch to Sign-Up form 
+            formTitle.textContent = 'Sign Up'; 
+            confirmPasswordField.style.display = 'block'; 
+            confirmPasswordLabel.style.display = 'block'; 
+            submitButton.textContent = 'Sign Up'; 
+            toggleText.innerHTML = 'Already have an account? <a href="#" onclick="toggleForm()">Login</a>'; 
+            
+            // IMPORTANT: Setting visibility to 'hidden' is better than 'display: none'
+            // if you want to reserve the space, but 'display: none' is typically used
+            // for hiding form elements in an SPA structure. I will keep your current
+            // use of visibility for stability, but recommend changing to display:none 
+            // if you want the layout to collapse.
+            showPasswordContainer.style.visibility = 'hidden'; 
+            isLogin = false; 
+        } else { 
+            // Switch to Login form 
+            formTitle.textContent = 'Login'; 
+            confirmPasswordField.style.display = 'none'; 
+            confirmPasswordLabel.style.display = 'none'; 
+            submitButton.textContent = 'Login'; 
+            toggleText.innerHTML = 'Don\'t have an account? <a href="#" onclick="toggleForm()">Sign Up</a>'; 
+            showPasswordContainer.style.visibility = 'visible'; 
+            isLogin = true; 
+        } 
+    } 
+
+    function handleSubmit() { 
+        const username = document.getElementById('username').value; 
+        const password = document.getElementById('password').value; 
+        const errorMessage = document.getElementById('errorMessage'); 
+
+        errorMessage.textContent = ''; // Clear previous errors
+		if (isLogin) { 
+            // --- Login Logic ---
+            const storedUsername = localStorage.getItem('username'); 
+            const storedPassword = localStorage.getItem('password'); 
+
+            if (username === storedUsername && password === storedPassword) { 
+                alert('Welcome! Successfully logged in.'); 
+                window.location.href = 'index.html'; 
+            } else { 
+                errorMessage.textContent = 'Invalid username or password'; 
+            } 
+        } else { 
+            // --- Sign Up Logic ---
+            const confirmPassword = document.getElementById('confirmPassword').value; 
+
+            if (!username || !password || !confirmPassword) {
+                errorMessage.textContent = 'Please fill out all fields';
+            } else if (password !== confirmPassword) { 
+                errorMessage.textContent = 'Passwords do not match'; 
+            } else { 
+                localStorage.setItem('username', username); 
+                localStorage.setItem('password', password); 
+                alert('Account created successfully! You can now log in.'); 
+                document.getElementById('authForm').reset(); 
+                toggleForm(); 
+            } 
+        } 
+    } 
+    
+    // when in Sign Up mode (though the checkbox is typically hidden).
+    function togglePasswordVisibility() { 
+        const passwordField = document.getElementById('password');
+        const confirmPasswordField = document.getElementById('confirmPassword');
+        
+        // Determine the new type
+        const newType = (passwordField.type === 'password') ? 'text' : 'password';
+
+        // Apply to main password field
+        passwordField.type = newType;
+        
+        // If we are in Sign Up mode (and fields are visible), apply to confirm field as well
+        if (!isLogin) {
+             confirmPasswordField.type = newType;
+        }
+    } 
+    
+    document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch); 
+
+    function checkPasswordMatch() { 
+        const password = document.getElementById('password').value; 
+        const confirmPassword = document.getElementById('confirmPassword').value; 
+        const message = document.getElementById('passwordMatchMessage'); 
+
+        if (confirmPassword === "") { 
+            message.style.display = 'none'; 
+        } else if (confirmPassword === password) { 
+            message.textContent = 'Passwords match'; 
+            message.style.color = 'green'; 
+            message.style.display = 'block'; 
+        } else { 
+            message.textContent = 'Passwords do not match'; 
+            message.style.color = 'red'; 
+            message.style.display = 'block'; 
+        } 
+    } 
+</script>
+</script> 
+</body> 
+</html>
